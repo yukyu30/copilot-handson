@@ -15,7 +15,12 @@ Duration: 00:02:00
 
 時間の関係上、このワークショップでカバーしきれないパートがありますので、ご興味のある方は、ぜひ [GitHub Copilot Patterns & Exercises](https://patterns.hattori.dev/ja/) もご参照ください。
 
-![](images//book-cover.png)
+[![](images//book-cover.png)](https://patterns.hattori.dev/ja/)
+
+
+ワークショップの解説に使ったスライドは[こちら](https://speakerdeck.com/yuhattor/github-copilot-workshop)に格納してございます。
+
+[![](images//workshop-slide.png)](https://speakerdeck.com/yuhattor/github-copilot-workshop)
 
 ## Copilot の感覚を掴む
 
@@ -665,7 +670,7 @@ Visual Studio Codeの "定義に移動" 機能を使用するには、調べた�
 
 ## Topic: ハイレベルアーキテクチャを先に
 
-Duration: 00:00:00
+Duration: 00:02:00
 
 複雑なシステムを開発するとき、いきなり細部のコードに飛び込み、プログラムの全体的なアーキテクチャを見失うことはよくあることです。このような事が繰り返されると、同時に GitHub Copilot も全体的なアーキテクチャを見失うことに繋がります。これは誤解やエラーの原因となってしまいます。開発において、プログラムのハイレベルなアーキテクチャを先に設計し、コードの各部分の機能と目的についてコメントしていくことにより、GitHub Copilot も文脈をよりよく理解し、より的確な提案をすることができます。
 
@@ -703,7 +708,7 @@ Duration: 00:00:00
 
 ## Topic: 小さなまとまりで作業する
 
-Duration: 00:00:00
+Duration: 00:01:00
 
 小さなコードの断片をより少ないコンテキストで扱うと、GitHub Copilot の出力が向上します。複雑なアプリケーションを構築していると想像してください。すべてを一度に生成しようとする代わりに、タスクを小さな部分に分割し、限定されたコンテキストを GitHub Copilot に提供します。このアプローチは開発プロセスを合理化するだけでなく、生成されたコードの品質も向上させます。
 
