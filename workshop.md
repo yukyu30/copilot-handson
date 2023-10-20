@@ -87,6 +87,14 @@ $ python3 run.py
 あいこです。
 ```
 
+### 発展課題
+
+Lizard(リザード) と Spock(スポック) の新しい手を追加してみましょう。
+
+![](images//RockPaperScissorsLizardSpock.jpg)
+
+(画像は [puzzlewocky](https://puzzlewocky.com/parlor-games/rock-paper-scissors-lizard-spock/) より引用)
+
 ## テストを書いてみる
 
 Duration: 00:10:00
@@ -747,3 +755,19 @@ class complex_calculation:
 - GitHub Copilot の確率的な性質が、異なるシナリオでコードを生成する能力にどのように影響しますか?
 - GitHub Copilot との小さなチャンクでの作業が、効果が少ないか、より困難である状況はありますか?
 
+## 時間が余った方に
+
+Duration: 00:30:00
+
+GitHub CopilotでNode.jsの計算機ウェブアプリを改善してみましょう。
+
+ソースコードは[こちら](https://github.com/copilot-workshops/copilot-node-calculator)です
+このシナリオではまず計算機ウェブアプリを作成し、GitHub Copilotを活用しながら新たな機能を追加します。
+
+以下の課題にチャレンジしてみましょう
+
+- 単体テストの追加 (引き算)
+- 単体テストの追加 (べき乗)
+- 新たな演算機能を計算機に実装
+
+![](images//node-calculator-image.png)
