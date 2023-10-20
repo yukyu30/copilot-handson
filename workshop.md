@@ -286,12 +286,10 @@ Duration: 00:05:00
 Junit と Mockito を使用してテストコードを生成する場合、次のプロンプトを GitHub Copilot に提供できます:
 
 ```java
-// JunitとMockitoを使用してユニットテストを追加する
-// 少なくとも10種類の有効な/無効な入力の組み合わせをテストする
-@Test
-public void validateInput() {
-  // ここにコードを記述
-}
+# pytest でテストを書いてください
+# 少なくとも10種類の有効な/無効な入力の組み合わせをテストする
+def test_judge():
+  # ここにテストケースを記載する
 ```
 
 ### Exercise
