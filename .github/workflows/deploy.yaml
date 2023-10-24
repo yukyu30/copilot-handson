@@ -15,7 +15,15 @@ jobs:
       - name: Install claat
         run: go install github.com/googlecodelabs/tools/claat@latest
       - name: Generate lab contents
-        run:  $HOME/go/bin/claat export workshop.md
+        run: $HOME/go/bin/claat export -o docs/ja workshop.ja.md
+      - name: Move directory
+        run: mv docs/ja/docs/* docs/ja
+      - name: Generate lab contents for EN
+        run: $HOME/go/bin/claat export -o docs/en workshop.en.md
+      - name: Move directory
+        run: mv docs/en/docs/* docs/en
+      - name: Move index
+        run: mv index.html docs/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

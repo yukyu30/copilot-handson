@@ -3,7 +3,7 @@ Summary: GitHub Copilot
 Id: docs
 Environments: Web
 Status: Published
-Feedback Link: <https://github.com/yuhattor/copilot-handson-jp>
+Feedback Link: https://github.com/yuhattor/copilot-handson-jp
 
 # GitHub Copilot ワークショップ
 
