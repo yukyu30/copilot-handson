@@ -3,190 +3,184 @@ Summary: GitHub Copilot
 Id: docs
 Environments: Web
 Status: Published
-Feedback Link: https://github.com/yuhattor/copilot-handson-jp
+Feedback Link: <https://github.com/yuhattor/copilot-handson>
 
-# GitHub Copilot ワークショップ
+# GitHub Copilot Workshop
 
-## ワークショップについて
+## About the Workshop
 
 Duration: 00:02:00
 
-ワークショップは [GitHub Copilot Patterns & Exercises](https://patterns.hattori.dev/ja/) の内容を一部参照しています。
+This workshop references some of the content from [GitHub Copilot Patterns & Exercises](https://patterns.hattori.dev/ja/).
 
-時間の関係上、このワークショップでカバーしきれないパートがありますので、ご興味のある方は、ぜひ [GitHub Copilot Patterns & Exercises](https://patterns.hattori.dev/ja/) もご参照ください。
+Due to time constraints, there are parts not fully covered in this workshop. If you're interested, please also refer to [GitHub Copilot Patterns & Exercises](https://patterns.hattori.dev/ja/).
 
-[![](images//book-cover.png)](https://patterns.hattori.dev/ja/)
+[![](images//book-cover.png)](https://patterns.hattori.dev/en/)
 
-
-ワークショップの解説に使ったスライドは[こちら](https://speakerdeck.com/yuhattor/github-copilot-workshop)に格納してございます。
-
-[![](images//workshop-slide.png)](https://speakerdeck.com/yuhattor/github-copilot-workshop)
-
-## Copilot の感覚を掴む
+## Getting a Feel for Copilot
 
 Duration: 00:05:00
 
-じゃんけんゲームのロジックを書いてみます。お好きな言語を選択して実施してください。 (ハンズオンでは Python を例示します)
+Let's try writing the logic for a rock-paper-scissors game. Please choose your preferred language to proceed (Python is demonstrated in the hands-on session).
 
-コメント部分を 1行1行書いて/コピーペーストをして実施してみてください。
+Please write or copy-paste each comment line by line and execute it.
 
 ```py
-# じゃんけんゲームを書いてください
+# Please write a rock-paper-scissors game
 import random
 
-# ロジックを全てハンドルするmain関数を定義
+# Define a main function that handles all the logic
 
 def main():
-    # プレイヤーの手を入力
-    player_hand = input("じゃんけんをしましょう！(グー、チョキ、パー)：")
-    # プレイヤーの手を表示
-    print("あなたの手は" + player_hand + "です。")
-    # コンピューターの手をランダムに選択
-    computer_hand = random.choice(["グー", "チョキ", "パー"])
-    # コンピューターの手を表示
-    print("コンピューターの手は" + computer_hand + "です。")
-    # プレイヤーの手とコンピューターの手を比較して結果を表示
+    # Get the player's hand as input
+    player_hand = input("Let's play rock-paper-scissors! (Rock, Scissors, Paper)：")
+    # Display the player's hand
+    print("Your hand is " + player_hand + ".")
+    # Randomly select the computer's hand
+    computer_hand = random.choice(["Rock", "Scissors", "Paper"])
+    # Display the computer's hand
+    print("The computer's hand is " + computer_hand + ".")
+    # Compare the player's hand and the computer's hand, then display the result
     if player_hand == computer_hand:
-        print("あいこです。")
-    elif player_hand == "グー":
-        if computer_hand == "チョキ":
-            print("あなたの勝ちです。")
+        print("It's a draw.")
+    elif player_hand == "Rock":
+        if computer_hand == "Scissors":
+            print("You win.")
         else:
-            print("あなたの負けです。")
-    elif player_hand == "チョキ":
-        if computer_hand == "パー":
-            print("あなたの勝ちです。")
+            print("You lose.")
+    elif player_hand == "Scissors":
+        if computer_hand == "Paper":
+            print("You win.")
         else:
-            print("あなたの負けです。")
-    elif player_hand == "パー":
-        if computer_hand == "グー":
-            print("あなたの勝ちです。")
+            print("You lose.")
+    elif player_hand == "Paper":
+        if computer_hand == "Rock":
+            print("You win.")
         else:
-            print("あなたの負けです。")
+            print("You lose.")
     else:
-        print("グー、チョキ、パーのいずれかを入力してください。")
+        print("Please input Rock, Scissors, or Paper.")
 
-# main関数を呼び出す
+# Call the main function
 if __name__ == "__main__":
     main()
 ```
 
-### 実行
+### Execution
 
-実行をすると以下の結果がでましたでしょうか。
+Did you get the following result when you ran it?
 
-エラーが出た場合、なぜエラーが出たのか考えてみましょう。
+If there's an error, think about why the error occurred.
 
-プロンプトの日本語を修正したら正しい結果が出るのかも考えてみましょう。
+Consider if fixing the prompt in Japanese would result in the correct outcome.
 
 ```sh
 $ python3 run.py
-じゃんけんをしましょう！(グー、チョキ、パー)：パー
-あなたの手はパーです。
-コンピューターの手はパーです。
-あいこです。
+Let's play rock-paper-scissors! (Rock, Scissors, Paper)：Paper
+Your hand is Paper.
+The computer's hand is Paper.
+It's a draw.
 ```
 
-### 発展課題
+### Advanced Challenge
 
-Lizard(リザード) と Spock(スポック) の新しい手を追加してみましょう。
+Let's try adding new hands, Lizard and Spock.
 
 ![](images//RockPaperScissorsLizardSpock.jpg)
 
-(画像は [puzzlewocky](https://puzzlewocky.com/parlor-games/rock-paper-scissors-lizard-spock/) より引用)
+(The image is cited from [puzzlewocky](https://puzzlewocky.com/parlor-games/rock-paper-scissors-lizard-spock/))
 
-## テストを書いてみる
+## Writing Tests
 
 Duration: 00:10:00
 
-じゃんけんゲームの下にテストを書いてみます。
+Let's try writing tests below the rock-paper-scissors game.
 
-前回のコードは Random 関数が埋め込まれているロジックがあり、テストが書きづらいため、最初のステップで書いたコードを破棄し、
-今回はそれぞれを `judge` 関数 と `main` 関数にに切り出してテストを書いてみます。
+The previous code has logic embedded with the Random function, making it hard to write tests. So, discard the initial code you wrote. For this time, we will separate the logic into a `judge` function and a `main` function, and then write tests.
 
-`import unittest` を書いて、自然言語のコメントを書き換えてみましょう
+Write `import unittest` and try to rewrite the comments in natural language.
 
 ```py
-# じゃんけんゲームを書いてください
+# Please write a rock-paper-scissors game
 import random
 import unittest
 
-# 勝敗の判定ロジックをハンドルするjudge関数を定義
+# Define the judge function that handles the winning or losing logic
 
 def judge(player_hand, computer_hand):
-    # プレイヤーの手とコンピューターの手を比較して結果を表示
+    # Compare the player's hand with the computer's hand and display the result
     if player_hand == computer_hand:
-        return "あいこです。"
-    elif player_hand == "グー":
-        if computer_hand == "チョキ":
-            return "あなたの勝ちです。"
+        return "It's a draw."
+    elif player_hand == "Rock":
+        if computer_hand == "Scissors":
+            return "You win."
         else:
-            return "あなたの負けです。"
-    elif player_hand == "チョキ":
-        if computer_hand == "パー":
-            return "あなたの勝ちです。"
+            return "You lose."
+    elif player_hand == "Scissors":
+        if computer_hand == "Paper":
+            return "You win."
         else:
-            return "あなたの負けです。"
-    elif player_hand == "パー":
-        if computer_hand == "グー":
-            return "あなたの勝ちです。"
+            return "You lose."
+    elif player_hand == "Paper":
+        if computer_hand == "Rock":
+            return "You win."
         else:
-            return "あなたの負けです。"
+            return "You lose."
     else:
-        return "グー、チョキ、パーのいずれかを入力してください。"
+        return "Please input either Rock, Scissors, or Paper."
 
-# judge 関するを使ってじゃんけんをする main 関数を定義
+# Define the main function that plays rock-paper-scissors using the judge function
 def main():
-    # プレイヤーの手を入力
-    player_hand = input("じゃんけんをしましょう！(グー、チョキ、パー)：")
-    # プレイヤーの手を表示
-    print("あなたの手は" + player_hand + "です。")
-    # コンピューターの手をランダムに選択
-    computer_hand = random.choice(["グー", "チョキ", "パー"])
-    # コンピューターの手を表示
-    print("コンピューターの手は" + computer_hand + "です。")
-    # judge関数を呼び出して結果を表示
+    # Get the player's hand as input
+    player_hand = input("Let's play rock-paper-scissors! (Rock, Scissors, Paper)：")
+    # Display the player's hand
+    print("Your hand is " + player_hand + ".")
+    # Randomly select the computer's hand
+    computer_hand = random.choice(["Rock", "Scissors", "Paper"])
+    # Display the computer's hand
+    print("The computer's hand is " + computer_hand + ".")
+    # Call the judge function and display the result
     print(judge(player_hand, computer_hand))
 
-# 9通りのテストケースを書いてみる
-class TestJanken(unittest.TestCase):
-  # Copilot が提案をします
+# Try writing 9 test cases
+class TestRockPaperScissors(unittest.TestCase):
+  # Copilot will make suggestions
 ```
 
-以下のようなコードが出力されましたでしょうか。
+Did you get an output similar to the following code?
 
 ```py
-# 9通りのテストケースを書いてみる
-class TestJanken(unittest.TestCase):
-    # グーをテスト
-    def test_goo(self):
-        self.assertEqual(judge("グー", "グー"), "あいこです。")
-        self.assertEqual(judge("グー", "チョキ"), "あなたの勝ちです。")
-        self.assertEqual(judge("グー", "パー"), "あなたの負けです。")
+# Try writing 9 test cases
+class TestRockPaperScissors(unittest.TestCase):
+    # Test Rock
+    def test_rock(self):
+        self.assertEqual(judge("Rock", "Rock"), "It's a draw.")
+        self.assertEqual(judge("Rock", "Scissors"), "You win.")
+        self.assertEqual(judge("Rock", "Paper"), "You lose.")
 
-    # チョキをテスト
-    def test_choki(self):
-        self.assertEqual(judge("チョキ", "グー"), "あなたの負けです。")
-        self.assertEqual(judge("チョキ", "チョキ"), "あいこです。")
-        self.assertEqual(judge("チョキ", "パー"), "あなたの勝ちです。")
+    # Test Scissors
+    def test_scissors(self):
+        self.assertEqual(judge("Scissors", "Rock"), "You lose.")
+        self.assertEqual(judge("Scissors", "Scissors"), "It's a draw.")
+        self.assertEqual(judge("Scissors", "Paper"), "You win.")
 
-    # パーをテスト
-    def test_paa(self):
-        self.assertEqual(judge("パー", "グー"), "あなたの勝ちです。")
-        self.assertEqual(judge("パー", "チョキ"), "あなたの負けです。")
-        self.assertEqual(judge("パー", "パー"), "あいこです。")
+    # Test Paper
+    def test_paper(self):
+        self.assertEqual(judge("Paper", "Rock"), "You win.")
+        self.assertEqual(judge("Paper", "Scissors"), "You lose.")
+        self.assertEqual(judge("Paper", "Paper"), "It's a draw.")
 
-# テストを実行する
+# Execute the tests
 unittest.main()
 ```
 
-### 実行
+### Execution
 
-実行をすると以下の結果がでましたでしょうか。
+Did you get the following results when you executed it?
 
-エラーが出た場合、なぜエラーが出たのか考えてみましょう。
+If there was an error, think about why the error occurred.
 
-プロンプトの日本語を修正したら正しい結果が出るのかも考えてみましょう。
+Consider if correcting the Japanese in the prompt might lead to the correct result.
 
 ```sh
 $ python3 run.py
@@ -195,223 +189,199 @@ $ python3 run.py
 Ran 3 tests in 0.000s
 ```
 
-## テストを書いてみる (Chat)
+## Writing Tests (Chat)
 
 Duration: 00:05:00
 
-ここで、GitHub Copilot Chat も試します。
+Now, we will also try GitHub Copilot Chat.
 
-コードから以下の部分だけを残し、GitHub Copilot Chat にテストを出力させます。
+Keep only the following part of the code and have GitHub Copilot Chat output the tests for you.
 
 ```py
-# じゃんけんゲームを書いてください
+# Please write a rock-paper-scissors game
 import random
 import unittest
 
-# 勝敗の判定ロジックをハンドルするjudge関数を定義
+# Define the judge function that handles the winning or losing logic
 
 def judge(player_hand, computer_hand):
-    # プレイヤーの手とコンピューターの手を比較して結果を表示
+    # Compare the player's hand with the computer's hand and display the result
     if player_hand == computer_hand:
-        return "あいこです。"
-    elif player_hand == "グー":
-        if computer_hand == "チョキ":
-            return "あなたの勝ちです。"
+        return "It's a draw."
+    elif player_hand == "Rock":
+        if computer_hand == "Scissors":
+            return "You win."
         else:
-            return "あなたの負けです。"
-    elif player_hand == "チョキ":
-        if computer_hand == "パー":
-            return "あなたの勝ちです。"
+            return "You lose."
+    elif player_hand == "Scissors":
+        if computer_hand == "Paper":
+            return "You win."
         else:
-            return "あなたの負けです。"
-    elif player_hand == "パー":
-        if computer_hand == "グー":
-            return "あなたの勝ちです。"
+            return "You lose."
+    elif player_hand == "Paper":
+        if computer_hand == "Rock":
+            return "You win."
         else:
-            return "あなたの負けです。"
+            return "You lose."
     else:
-        return "グー、チョキ、パーのいずれかを入力してください。"
+        return "Please input either Rock, Scissors, or Paper."
 
-# ロジックを全てハンドルするmain関数を定義
+# Define the main function that plays rock-paper-scissors using the judge function
 def main():
-    # プレイヤーの手を入力
-    player_hand = input("じゃんけんをしましょう！(グー、チョキ、パー)：")
-    # プレイヤーの手を表示
-    print("あなたの手は" + player_hand + "です。")
-    # コンピューターの手をランダムに選択
-    computer_hand = random.choice(["グー", "チョキ", "パー"])
-    # コンピューターの手を表示
-    print("コンピューターの手は" + computer_hand + "です。")
-    # judge関数を呼び出して結果を表示
+    # Get the player's hand as input
+    player_hand = input("Let's play rock-paper-scissors! (Rock, Scissors, Paper)：")
+    # Display the player's hand
+    print("Your hand is " + player_hand + ".")
+    # Randomly select the computer's hand
+    computer_hand = random.choice(["Rock", "Scissors", "Paper"])
+    # Display the computer's hand
+    print("The computer's hand is " + computer_hand + ".")
+    # Call the judge function and display the result
     print(judge(player_hand, computer_hand))
+
 ```
 
-### テストを書く
+### Writing Tests
 
-早速 GitHub Copilot Chat で`/tests` のコマンドを試してみます
+Let's immediately try the `/tests` command in GitHub Copilot Chat.
 
 ![](images//copilot-chat-test.png)
 
-以下のようなファイルが出力されました。
+The following file was output.
 
-出力された `from sample import judge, main` から、GitHub Copilot Chat は上記のファイルが `sample.py` として保存されていると推測しています。
-コチラのファイルは `test_sample.py` として保存します。
+From the output `from sample import judge, main`, it's inferred by GitHub Copilot Chat that the above file is saved as `sample.py`. We will save this file as `test_sample.py`.
 
 ```py
 import unittest
 import random
 from sample import judge, main
 
-class TestJankenGame(unittest.TestCase):
+class TestRockPaperScissorsGame(unittest.TestCase):
     
     def test_judge_draw(self):
-        self.assertEqual(judge("グー", "グー"), "あいこです。")
-        self.assertEqual(judge("チョキ", "チョキ"), "あいこです。")
-        self.assertEqual(judge("パー", "パー"), "あいこです。")
+        self.assertEqual(judge("グー", "グー"), "It's a draw.")
+        self.assertEqual(judge("チョキ", "チョキ"), "It's a draw.")
+        self.assertEqual(judge("パー", "パー"), "It's a draw.")
         
     def test_judge_win(self):
-        self.assertEqual(judge("グー", "チョキ"), "あなたの勝ちです。")
-        self.assertEqual(judge("チョキ", "パー"), "あなたの勝ちです。")
-        self.assertEqual(judge("パー", "グー"), "あなたの勝ちです。")
+        self.assertEqual(judge("グー", "チョキ"), "You win.")
+        self.assertEqual(judge("チョキ", "パー"), "You win.")
+        self.assertEqual(judge("パー", "グー"), "You win.")
         
     def test_judge_lose(self):
-        self.assertEqual(judge("グー", "パー"), "あなたの負けです。")
-        self.assertEqual(judge("チョキ", "グー"), "あなたの負けです。")
-        self.assertEqual(judge("パー", "チョキ"), "あなたの負けです。")
+        self.assertEqual(judge("グー", "パー"), "You lose.")
+        self.assertEqual(judge("チョキ", "グー"), "You lose.")
+        self.assertEqual(judge("パー", "チョキ"), "You lose.")
         
 if __name__ == '__main__':
     unittest.main()
 ```
 
-## テストコード生成の方法を指定する
+## Specify How to Generate Test Code
 
-Duration: 00:05:00
+### Description
 
-テストに関する指示を具体的に示すことは、必要なシナリオをすべてカバーする良い方法です。"ユニットテストを追加する"といった曖昧な指示ではなく、テストフレームワークや生成するケースの数などの具体的な詳細を提供することができます。GitHub Copilotのようなツールを活用する際には、「JunitとMockitoを使用してユニットテストを追加し、少なくとも10種類の有効な/無効な入力の組み合わせをテストする」といった指定を行うことで、より正確で包括的な結果を得ることができます。
+When it comes to testing, specific instructions can be a great way to make sure you're covering all the necessary scenarios. Instead of giving vague instructions like "add unit tests," you can provide concrete details about the testing frameworks and the number of cases you want to generate. This can be helpful in utilizing tools like GitHub Copilot, where specifying "use Junit and Mockito to add unit tests, testing at least 10 variations of valid and invalid input combinations" can yield a more accurate and comprehensive result.
 
 #### Example
 
-pytest を使用してテストコードを生成する場合、次のプロンプトを GitHub Copilot に提供できます:
+If you are aiming to generate a test code using Junit and Mockito, you can provide the following prompt to GitHub Copilot:
 
 ```java
-# pytest でテストを書いてください
-# 少なくとも10種類の有効な/無効な入力の組み合わせをテストする
-def test_judge():
-  # ここにテストケースを記載する
+// Using Junit and Mockito, add unit tests
+// Test at least 10 variations of valid and invalid input combinations
+@Test
+public void validateInput() {
+  // Your code here
+}
 ```
 
 ### Exercise
 
-- **エクササイズ1**: pytest を使用して、異なる3つの有効な入力で単純なメソッドをテストするユニットテストを書いてみましょう。
-- **エクササイズ2**: ユニットテストを拡張して、3つの異なる無効な入力を含め、例外が適切に処理されることを確認します。
+- **Exercise 1**: Write a unit test using JUnit that tests a simple method with 3 different valid inputs.
+- **Exercise 2**: Extend the unit test to include 3 different invalid inputs, and verify that exceptions are handled correctly.
 
 ### Checklist for Further Learning
 
-- コード内のすべての重要なパスをテストする方法はどのように確保できるでしょうか?
-- テストが必ず失敗するようにテストコードを書くことはできますか?
-- コードベースが進化するにつれてテストを維持するためにどのような戦略をとることができますか?
+- How can you ensure that the tests cover all the critical paths in the code?
+- Can you write the test code so that the test always fails?
+- What strategies can be used to maintain the tests as the codebase evolves?
 
-## 自然言語でテストケースを最初に記述する
+## Writing Test Cases in Natural Language First
 
-Duration: 00:05:00
+### Description
 
-GitHub Copilotのような AI を活用したコード生成を行う際、AI に明確なコンテキストを提供せずに包括的なテストカバレッジを期待するのは難しいことです。その段階でコードでテストケースを記述しようとする代わりに、まず自然言語の記述を作成します。これにより、生成されたコードがすべての必要な基準を満たすことを確認することに焦点を当て、テストカバレッジを向上させることができます。
+When working with AI-powered code generation, like GitHub Copilot, expecting comprehensive test coverage without providing clear context to the AI is challenging. Instead of trying to write the test cases in code at that point, create natural language descriptions first. This will focus on improving the test coverage, ensuring that the generated code meets all the necessary criteria.
 
-### Example
+#### Example
 
-以下は、自然言語でテストケースを記述する方法の例です。この方法を使用することで、コードを生成する前にさまざまなシナリオやエッジケースをカバーすることができます。
+Here's an example of how you can write test cases in natural language for a multiplication function. This practice ensures that you cover various scenarios and edge cases before generating the code.
 
 ```py
 class TestMultiply(unittest.TestCase):
   def test_multiply(self): 
-    # 正数、負数、ゼロ、小数、非整数の入力など、さまざまなケースのテスト
+    # Tests for different cases, such as positive, negative, zero, decimal, and non-integer inputs
 ```
 
 ### Exercise
 
-- **エクササイズ1**: 三角形の面積を計算する関数に対して、自然言語のテストケースを記述してください。さまざまな入力シナリオとエッジケースを考慮してください。
-- **エクササイズ2**: エクササイズ1で記述した自然言語のテストケースから、GitHub Copilotを使用してコードを生成します。結果を分析します。
-- **エクササイズ3**: より複雑な関数（例: ソートアルゴリズム）に対して、自然言語を使用してテストスイートを作成します。さまざまな入力シナリオとエッジケースを考慮してください。
-
-### 学習のためのチェックリスト
-
-- コードを記述する前に自然言語でテストケースを記述する利点は何ですか?
-- 自然言語で記述されたテストケースは、開発者と非技術的な関係者との協力をどのように改善できますか?
-- このアプローチを使用する際の潜在的な課題は何であり、それらはどのように緩和できますか?
-
-## オープン・クエスチョンで尋ねる - リファクタリングの手法を一緒に考える
-
-Duration: 00:05:00
-
-リファクタリングは、しばしば複雑なプロセスであります。必ずしも何が正しく、何が間違っているかについてではなく、基本概念と潜在的な改善を理解することが重要です。GitHub Copilotでオープン・クエスチョンを利用することで、開発者は GitHub Copilot の助けを借りてより熟慮した方法でコードの改善に取り組むことができます。
-
-#### Example
-
-GitHub Copilotでのクエリに開かれた質問を導入すると、洞察に満ちた提案が得られることがあります。例えば: 
-
-```javascript
-// Q: この関数の復元性をどのように改善できますか? 
-// A: <GITHUB COPILOT SUGGESTION>
-function backupData(data) {
-  // 実装はこちら
-}
-
-// Q: この文脈でエラーを処理する最良の方法は何ですか? 
-// A: <GITHUB COPILOT SUGGESTION>
-try {
-  // 何かの操作
-} catch (error) {
-  // エラー処理
-}
-```
-
-### Exercise
-
-- **エクササイズ 1**: ファイルハンドリングに関連する関数を記述し、それをより信頼性があり効率的にする方法について Copilot に尋ねてみてください。
-- **エクササイズ 2**: 例外処理を含むコードスニペットを作成し、エラー報告の改善について Copilot に提案を求めてください。
-- **エクササイズ 3**: シンプルな UI コンポーネントを設計し、それに対するアクセスや操作をよりエレガントにする方法について Copilot に尋ねてみてください。
+- **Exercise 1**: Write natural language test cases for a function that calculates the area of a triangle. Consider different input scenarios and edge cases.
+- **Exercise 2**: Use GitHub Copilot to generate code from the natural language test cases you wrote in Exercise 1. Analyze the results.
+- **Exercise 3**: Create a test suite using natural language for a more complex function, like a sorting algorithm. Consider various input scenarios and edge cases.
 
 ### Checklist for Further Learning
 
-- 既存のコードのどの部分がリファクタリングから利益を得ることができますか?
-- オープンクエスチョンが開発プロセスでどのように機能しますか?
+- What are the benefits of writing test cases in natural language before coding?
+- How can natural language test cases improve collaboration between developers and non-technical stakeholders?
+- What are the potential challenges of using this approach, and how might they be mitigated?
 
-## コードからコメントの自動生成
+## Asking with Open-Ended Questions
 
-Duration: 00:05:00
+### Description
 
-GitHub Copilot はコードからコメントを生成できます。既存のコードが十分なコメントを欠いている場合や、他の開発者がコードを理解するのを助けるために、GitHub Copilot を使ってコメント形式で自動的に説明を生成しましょう。
+Refactoring is often a complex process. It is not necessarily about what is right and what is wrong, but about understanding the basic concepts and potential improvements. using open questions in GitHub Copilot, developers can work on improving code in a more thoughtful way with the help of GitHub Copilot GitHub Copilot can help developers work on code improvements in a more thoughtful way.
 
-以下のサンプルは、与えられた数より小さい素数をリストするエラトステネスのふるいのアルゴリズムを示しています。このコードにはコメントが含まれていませんが、GitHub Copilotはコードの機能を説明するコメントを作成しています。
+#### Example
 
-コメントなしのコードはこちらです:
+Introducing open-ended questions in your queries with GitHub Copilot can lead to insightful suggestions. For example:
 
-```python
-def eratosthenes_sieve(n):
-    primes = []
-    sieve = [True] * (n + 1)
-    for p in range(2, n + 1):
-        if sieve[p]:
-            primes.append(p)
-            for i in range(p * p, n + 1, p):
-                sieve[i] = False
-    return primes
+```javascript
+// Q: How can I improve the restorability of this function?
+// A: <GITHUB COPILOT SUGGESTION>
+function backupData(data) {
+  // Implementation here
+}
+
+// Q: What's the best way to handle errors in this context?
+// A: <GITHUB COPILOT SUGGESTION>
+try {
+  // Some operation
+} catch (error) {
+  // Error handling
+}
 ```
 
 ### Exercise
 
-GitHub Copilotがそれを説明するコメントを追加する方法は次のとおりです。
+- **Exercise 1**: Write a function related to file handling and ask Copilot how to make it more reliable and efficient.
+- **Exercise 2**: Create a code snippet that includes exception handling and ask Copilot for suggestions to improve error reporting.
+- **Exercise 3**: Design a simple UI component and ask Copilot how to access or manipulate it in a more elegant way.
 
-まず、出力させたい内容に沿ってプロンプトを記載します。
-出力させたい項目のリストを作成します。この例では、関数の入力と出力、関数の例、関数の注意事項を出力します。
+### Checklist for Further Learning
+
+- What other areas of your code can benefit from refactoring?
+- How can open-ended questions assist in your development process?
+##  Code to Comment: Generating Comments from Code
+
+### Description
+
+GitHub Copilot can generate comments from code. When existing code lacks sufficient comments, or to assist other developers in understanding the code, GitHub Copilot can automatically generate explanations in comment form. The following sample demonstrates the Sieve of Eratosthenes algorithm to list prime numbers less than a given number. While this code does not contain comments, GitHub Copilot can create comments to describe the code's functionality.
+
+#### Example
+
+Here's the code without comments:
 
 ```python
-# 関数の概要、入力と出力、関数の例、関数の注意事項を出力します。
-# Description: ...
-# Input: ... 
-# Output: ...
-# Example: ...
-# Note: ...
 def eratosthenes_sieve(n):
     primes = []
     sieve = [True] * (n + 1)
@@ -423,12 +393,10 @@ def eratosthenes_sieve(n):
     return primes
 ```
 
-### Sample Result
-
-以下のように出力されたら成功です:
+Here's how GitHub Copilot can add comments to explain it:
 
 ```python
-# Description: returns the first n primes
+# Write the description of the method here <- [Actual Prompt]
 # Input: n - the number of primes to return
 # Output: a list of the first n primes
 # Example: eratosthenes_sieve(5) -> [2, 3, 5, 7, 11]
@@ -444,26 +412,41 @@ def eratosthenes_sieve(n):
     return primes
 ```
 
-### 学習のためのチェックリスト
+### Exercise
 
-- 生成されたコメントは、コードの機能とアルゴリズムを適切に説明していますか?
-- コメントは他の開発者がコードを理解するのに役立っていますか?
-- 生成されたコメントが間違っている場合、その理由は何だと思いますか?
+- **Exercise**: Generate appropriate comments for the code at the top of the following function:
+  ```python
+  def eratosthenes_sieve(n):
+      primes = []
+      sieve = [True] * (n + 1)
+      for p in range(2, n + 1):
+          if sieve[p]:
+              primes.append(p)
+              for i in range(p * p, n + 1, p):
+                  sieve[i] = False
+      return primes
+  ```
 
-## 構造化データからのオブジェクト生成
+### Checklist for Further Learning
 
-Duration: 00:05:00
+- Do the generated comments adequately explain the code's functionality and algorithm?
+- Are the comments helpful for other developers to understand the code?
+- What do you think could be the reason for any incorrect comments that were generated?
 
-開発者にとって、構造化データの取り扱いは日常的なタスクです。JSONなどの形式のデータをプログラミング言語内のオブジェクトに変換することで、堅牢で保守性の高いコードを作成できます。例えば、ユーザーのリストがあり、このデータをアプリケーション内のユーザーオブジェクトに変換したい場合を想像してみてください。GitHub Copilot は、この変換プロセスをサポートし、煩雑な作業を一瞬で終わる簡単な作業に変えてくれます。
+## Object Generation from Structured Data
+
+### Description
+
+Working with structured data is an everyday task for developers. Transforming data from formats like JSON into objects within your programming language allows for more robust and maintainable code. Imagine you have a list of users, and you want to convert this data into user objects within your application. GitHub Copilot can help you in this transformation process, turning a tedious task into a seamless exercise.
 
 #### Example
 
-以下は、与えられたJSONデータをユーザーオブジェクトのリストに変換するPythonの例です。
+Here's a Python example of how you might convert the given JSON data into a list of user objects:
 
 ```python
 import json
 
-json_data = '[{"id": "1", "name": "John Doe"}, {"id": "2", "name": "George Hattori"}]'
+json_data = '[{"id": "1", "name": "Yuki Hattori"}, {"id": "2", "name": "George Hattori"}]'
 users = json.loads(json_data)
 
 class User:
@@ -479,95 +462,98 @@ for user in user_objects:
 
 ### Exercise
 
-- **エクササイズ 1**: 異なる JSON 構造からオブジェクトを生成してみてください。例えば、ユーザーのアドレス情報を含むJSONなどです。
-- **エクササイズ 2**: JSON 内のデータが欠落しているようなエッジケースを取り扱ってみてください。コードが適切に処理されるようにしてください。
+- **Exercise 1**: Try generating objects from a different JSON structure, e.g., a JSON that includes address information for the users.
+- **Exercise 2**: Experiment with handling edge cases, such as missing data within the JSON, and ensure that your code handles them gracefully.
 
-### 学習のためのチェックリスト
+### Checklist for Further Learning
 
-- より複雑なデータ構造に適応するためにコードをどのように変更しますか?
-- データをオブジェクトに変換する前に、どのような方法でデータの妥当性を確認できるでしょうか?
-- このパターンを異なるプログラミング言語やフレームワークにどのように適用できますか?
+- How would you modify the code to accommodate a more complex data structure?
+- What methods could you use to validate the data before transforming it into objects?
+- How can this pattern be adapted to different programming languages or frameworks?
 
-## テーブル定義書をコードに変換する
+## Converting DB Table Spec to Migration File
 
-Duration: 00:05:00
+### Description
 
-AI を用いたコーディング支援ツールである GitHub Copilotの時代には、テキストベースで AI が容易にアクセスできるドキュメントが重要です。AI の時代では、Infrastructure as Code、データベーステーブル仕様、テスト要件などのファイルは、即座に実際のコードに変換できる可能性を持っています。複雑なエクセル、パワーポイントファイル、PDF、画像形式ではなく、テキストベースのドキュメントによって AI があなたのコーディングを協力に支援することができるようにになります。
+In the era of GitHub Copilot, an AI powered coding assistance tool, having easily accessible documents in text format becomes crucial. In the AI era, files such as Infrastructure as Code, database table specifications, test requirements, and more have the potential to be instantly transformed into actual code. Rather than dealing with complex Excel, PowerPoint files, PDFs, or image formats, AI will be able to assist your coding efforts collaboratively through text-based documents.
 
-以下のファイルがテキストベースであるか確認します:
+Let's check if the following files are text-based or AI friendly:
 
-- インフラストラクチャ定義
-- データベーステーブル定義
-- テスト仕様
+- Infrastructure definitions
+- Database table definitions
+- Test specifications
 
 #### Example
 
-例えば、以下のようなマークダウンで書かれたテーブルがある場合、GitHub Copilot はテーブル情報を元に Ruby on Rails のマイグレーションファイルを完成させます `migration.rb` ファイルを作り、書いてみましょう
+- Infrastructure Definitions
+- Database Table Definitions
+- Test Specifications
+
+For example, if you have a table written in markdown like below, GitHub Copilot can use it as a base for migration files and interface files.
 
 ```rb
-# | No. | 項目名                  | 型                           | 長さ   | 小数 | 必須 | 主キー | 備考                  |
+# | No. | Item Name            | Type                        | Length | Decimal | Required | Primary Key | Remarks                |
 # | --- | -------------------- | --------------------------- | ---- | -- | -- | --- | ------------------- |
-# | 1   | pass_document_id     | integer                     |      |    | Y  | Y   | パス文書ID              |
-# | 2   | checkout_id          | integer                     |      |    | Y  | Y   | レコードをユニークにするための連番   |
-# | 3   | status               | integer                     |      |    | Y  |     | ステータス1：貸出2：返却済み     |
-# | 4   | checkout_filename    | character-varying           | 255  |    | Y  |     | チェックアウトした物理ファイル名    |
-# | 5   | checkout_user_id     | character-varying           | 63   |    | Y  |     | チェックアウトした利用者        |
-# | 6   | checkout_datetime    | timestamp-without-time-zone |      |    | Y  |     | チェックアウトした日時         |
-# | 7   | checkin_filename     | character-varying           | 255  |    |    |     | チェックインした物理ファイル名     |
-# | 8   | checkin_datetime     | timestamp-without-time-zone |      |    |    |     | チェックインした日時          |
-# | 9   | checkin_memo         | character-varying           | 1024 |    |    |     | チェックイン時に入力したメモ      |
-# | 10  | checkout_cancel_memo | character-varying           | 1024 |    |    |     | チェックアウト取り消し時に入力したメモ |
-# | 11  | del_flg              | character-varying           | 1    |    |    |     | 無効フラグ1：無効0：有効       |
-# | 12  | create_user_id       | character-varying           | 63   |    |    |     | 作成者                 |
-# | 13  | create_datetime      | timestamp-without-time-zone |      |    |    |     | 作成時刻                |
-# | 14  | update_user_id       | character-varying           | 63   |    |    |     | 更新者                 |
-# | 15  | update_datetime      | timestamp-without-time-zone |      |    |    |     | 更新時刻               |
+# | 1   | pass_document_id     | integer                     |      |    | Y  | Y   | Document ID
+# | 2   | checkout_id          | integer                     |      |    | Y  | Y   | Checkout ID
+# | 3   | status               | integer                     |      |    | Y  |     | Status
+# | 4   | checkout_filename    | character-varying           | 255  |    | Y  |     | Checkout File Name
+# | 5   | checkout_user_id     | character-varying           | 63   |    | Y  |     | Checkout User ID
+# | 6   | checkout_datetime    | timestamp-without-time-zone |      |    | Y  |     | Checkout Date Time
+# | 7   | checkin_filename     | character-varying           | 255  |    |    |     | Checkin File Name
+# | 8   | checkin_datetime     | timestamp-without-time-zone |      |    |    |     | Checkin Date Time
+# | 9   | checkin_memo         | character-varying           | 1024 |    |    |     | Checkin Memo
+# | 10  | checkout_cancel_memo | character-varying           | 1024 |    |    |     | Checkout Cancel Memo
+# | 11  | del_flg              | character-varying           | 1    |    |    |     | Delete Flag
+# | 12  | create_user_id       | character-varying           | 63   |    |    |     | Create User ID
+# | 13  | create_datetime      | timestamp-without-time-zone |      |    |    |     | Create Date Time
+# | 14  | update_user_id       | character-varying           | 63   |    |    |     | Update User ID
+# | 15  | update_datetime      | timestamp-without-time-zone |      |    |    |     | Update Date Time
 
 # Create migration file of cooperation_pass public
 class CreateCooperationPass < ActiveRecord::Migration[7.0]
   def change
     # <Copilot Suggestion Here>
+
 ```
 
 ### Exercise
 
-- **エクササイズ 1**: 既存のドキュメントをチェックし、テキストベースでないファイルをリストします。
-- **エクササイズ 2**: テキストベースでないファイルのうちの1つをマークダウンまたはプレーンテキストファイルに変換し、以前の形式とのアクセシビリティを比較します。
-- **エクササイズ 3**: リポジトリをスキャンし、テキストベースでないドキュメントがコミットされた場合に警告するスクリプトを書きます。
+- **Exercise 1**: Check your existing documentation and list the files that are not in text-based formats.
+- **Exercise 2**: Convert one of the non-text-based files into a markdown or plaintext file and compare its accessibility with the previous format.
+- **Exercise 3**: Write a script that scans your repository and alerts you if non-text-based documentation is committed.
 
-### 学習のためのチェックリスト
+### Checklist for Further Learning
 
-- チームメンバーがテキストベースのドキュメントの標準を守っていることをどのように確保できますか?
-- 他にどんなチーム/プロジェクトのドキュメントがテキストで書かれていたら、開発の速度を上げることができますか?
-- テキストベースのドキュメントの採用が AI ツール のGitHub Copilot を使った開発をどのように改善できますか?
+- How can you ensure that team members are adhering to text-based documentation standards?
+- What other team/project documentation could be written in text to speed up development?
+- How can the adoption of text-based documentation improve development using the AI tool GitHub Copilot?
 
-## エディタテクニック: Copilot スニペットハンドリング
+## Client-tips: Copilot Snippet Handling
 
-Duration: 00:05:00
+### Description
 
-そして、GitHub Copilot は OpenAI の 大規模言語モデルを利用してコードを生成するため、トークンの数に制限があります。2023 年現在、GitHub Copilot はエディタで開いているコード全てを見ることができず、また AI もすべてのコードをトークンとして受け取るわけではありません。これは、ユーザーが GitHub Copilot に提供するコンテキストを慎重に制限する必要があることを意味しています。特筆すべきは、GitHub Copilot は外部リポジトリや GitHub.com / GitHub Enterprise Cloud に置かれたソースコードにはアクセスしていないということです。
+GitHub Copilot, which utilizes OpenAI's Large Language Models (LLM) to generate code, has a limitation on the number of tokens it can process. As of 2023, it doesn't see all of the code that's open in the editor and doesn't receive every token. This means that users must carefully limit the context provided to GitHub Copilot. Notably, Copilot doesn't have access to external repositories or source code placed in GitHub Enterprise Cloud.
 
-GitHub Copilot が提案に使用するファイルは、主に現在開いているファイルとそれに隣接するタブファイル(基本的には同じファイル拡張子)です。
-正確な提案をするためには、関連するファイルだけを開いておくことが不可欠です。
-以下は、2023年8月時点のチェックリストです。 GitHub Copilot がスニペットとして含めるファイルの種類は将来変更される可能性がありますが、「不要なファイルを閉じる」などの実践は、GitHub Copilot を使用していない場合であっても、コーディングにプラスの影響を与える可能性があります。
+The files that GitHub Copilot uses for suggestions are primarily the currently open file and other tab files adjacent to it (basically with the same file extension). To make accurate suggestions, it's essential to have only the relevant files open. The following is a checklist as of August 2023. The types of files that GitHub Copilot includes as snippets may change in the future, but practices such as "closing unnecessary files" will likely have a positive impact on your coding even if you were not using GitHub Copilot.
 
-- 参照する必要があるファイルを開く
-- 不要なファイルを閉じる
-- 参照したい 他の拡張子のファイル (例: .md, .csv) がある場合は、コピーしてコメントアウトする
+- Open the files you need to refer to
+- Close unnecessary files
+- If there is an .md file you want to refer to, copy it and comment it out
 
 #### Example
 
-Pythonの関数を1つのタブで書いており、隣接するタブに似たような関数があるシナリオを考えてみましょう。GitHub Copilotはパターンを認識し、改善の提案を行うことができます。
+Consider a scenario where you have a Python function written in one tab and a similar function in an adjacent tab; GitHub Copilot can recognize patterns and suggest improvements.
 
 ```python
-# タブ 1 (隣接)
-def add_numbers(a, b):
+# tab 1 (adjacent)
+def add_numbers(a, b):.
     return a + b
 ```
 
 ```python
-# タブ 2
-def subtract_numbers(a, b):
+# tab 2
+def subtract_numbers(a, b): return a - b
     return a - b
 
 answer = substruct_numbers(1, 2) + add_numbers( # <GitHub Copilot will suggest the code by reading the tab 1 >
@@ -575,199 +561,180 @@ answer = substruct_numbers(1, 2) + add_numbers( # <GitHub Copilot will suggest t
 
 ### Exercise
 
-- **エクササイズ 1**: 複数のタブを開いてGitHub Copilotを試し、提案がどのようにされるかを観察してみてください。
-- **エクササイズ 2**: 特定のタブを閉じて、その動作がどのように変わるかを確認してみてください。
-- **エクササイズ 3**: 複雑なプロジェクトで Copilot へ送信されるコードの文脈をを減らして実験してみてください。これが提供される提案にどのように影響するか観察してみましょう。
+- **Exercise 1**: Experiment with reducing the code context sent to Copilot in a complex project. Observe how this affects the suggestions provided.
+- **Exercise 2**: Discuss with your team the best practice for commenting based on language efficiency and understanding within the team.
 
 ### Checklist for Further Learning
 
-- Copilot に必要なコンテキストを最適に与えるには、どのような戦略を採用することができますか? 
-- コメントにおける言語の選択は、多様なチーム内の協力にどのように影響しますか? 
+- What strategies can be employed to provide the necessary context to Copilot without exceeding token limitations?
+- How does the choice of language in comments affect collaboration within a diverse team?
 
-### Notes
 
-GitHub Copilotは常に進化と改善を続けており、アルゴリズムも更新される可能性があります。この情報は2023年8月時点の正確な情報です。
-今後このトークン制約は緩和される可能性があります。
 
-## エディタテクニック: GitHub Copilot ショートカット
+## Client-tips: GitHub Copilot Shortcuts
 
-Duration: 00:05:00
+### Description
 
-GitHub Copilot は、開発者にコーディングプロセスを加速させるためのキーボードショートカットを提供します。これらのショートカットは、GitHub Copilot のAIによる提案とのナビゲーションやインタラクションを直感的かつ効率的に行うのに役立ちます。このパターンでは、GitHub Copilot を使用した迅速なコード開発に不可欠なキーボードショートカットを探求します。
+GitHub Copilot provides developers with a set of keyboard shortcuts to accelerate the coding process. These shortcuts make the navigation and interaction with GitHub Copilot's AI-driven suggestions more intuitive and efficient. In this pattern, we will explore the keyboard shortcuts that are essential for rapid code development with Copilot.
 
 #### Example
 
-例えば、GitHub Copilot からの提案を受け入れるには、`TAB` を押すだけで良いです。以下はいくつかの重要なショートカットのリストです:
+For example, to accept a suggestion from Copilot, you can simply press the `TAB` key. Here's a list of some key shortcuts:
 
-- 提案を受け入れる: `TAB`
-- 提案を拒否する: `Esc`
-- 複数の提案を表示する: `Ctrl` + `Enter`
-- 単語レベルで受け入れる: `Ctrl` + `→`
-- 次の提案を見る: `Alt` + `]`
-- 前の提案を見る: `Alt` + `[`
-- インライン提案をトリガーする: `Alt` + `/`
-- Labs 機能リストを表示する: `Ctrl` + `Shift` + `Alt` + `e`
-- サイドバーを切り替える: `Ctrl` + `Shift` + `a`
+- Accept suggestion: `TAB` key
+- Reject suggestion: `Esc` key
+- Show combined suggestions: `Ctrl` + `Enter` key
+- Accept at word level: `Ctrl` + `Right Arrow` key
+- See next suggestion: `Alt` + `]` key
+- See previous suggestion: `Alt` + `[` key
+- Trigger inline suggestion: `Alt` + `/` key
+- Show Labs feature list: `Ctrl` + `Shift` + `Alt` + `e` key
+- Toggle sidebar: `Ctrl` + `Shift+a` key
 
 ### Exercise
 
-- **エクササイズ 1**: 現在のプロジェクトで `TAB` を使って GitHub Copilot の提案を受け入れてみてください。
-- **エクササイズ 2**: `Esc` を押して提案を拒否してみてください。何が起きますか?
-- **エクササイズ 3**: `Ctrl` + `Enter` を使用して組み合わせた提案を確認します。それらを探索し、有用なものを特定してみてください。
-- **エクササイズ 4**: `Alt`  + `]` と `Alt`  + `[` を使用して提案をナビゲートしてみてください。コード選択プロセスにどう影響しますか?
-- **エクササイズ 5**: 上記の他のショートカットを試し、それぞれの経験を説明してみてください。
+- **Exercise 1**: Try using the `TAB` key to accept a Copilot suggestion in your current project. How does it feel?
+- **Exercise 2**: Press `Esc` key to reject a suggestion. What happens?
+- **Exercise 3**: Use `Ctrl` + `Enter` key to see combined suggestions. Explore them and identify a useful one.
+- **Exercise 4**: Navigate through the suggestions using `Alt` + `]` and `Alt` + `[` keys. How does it affect your code selection process?
+- **Exercise 5**: Experiment with the other shortcuts listed above and describe your experience with each of them.
 
 ### Checklist for Further Learning
 
-- GitHub Copilot の提案を受け入れたり拒否したりするショートカットを身につけましたか?
-- 複数の提案をナビゲートするショートカットを使うのに慣れましたか?
-- GitHub Copilot でのコーディング経験を向上させるために、VSCode 内で他にどのようなショートカットがありますか?
-- 自分の個人的なコーディングワークフローに合うようにショートカットをカスタマイズする方法はありますか?
-- これらのショートカットの使用は、Visual Studio Code と GitHub Copilot でのみ、または他のコーディング環境でも私に役立つ可能性がありますか?
+- Have I internalized the shortcuts for accepting and rejecting Copilot suggestions?
+- Am I comfortable using shortcuts to navigate through multiple suggestions?
+- What other shortcuts within VSCode can enhance my coding experience with Copilot?
+- How can I customize the shortcuts to suit my personal coding workflow?
+- Could the use of these shortcuts help me in other coding environments or only in Visual Studio Code with Copilot?
+## Client-tips: Pin the files you need
 
-## エディタテクニック: 便利なファイルのピン留め
+### Description
 
-Duration: 00:05:00
-
-GitHub Copilot の性能は、提供されるコンテキストに依存します。GitHub Copilot はテキストの類似性で開いているタブを検索し、大規模言語モデルにスニペットを送信します。したがって、私たちは AI に提供したいコンテキストを慎重に考える必要があります。プログラミングでは、宣言ファイル（d.ts）、テストファイル、インターフェイスファイルなどが豊富なコンテキスト情報を含んでいます。Visual Studio Codeのピン留め機能を使用すると、これらのファイルを必要に応じて簡単にアクセスし、GitHub Copilotに効率的に情報を提供できます。
+The effectiveness of GitHub Copilot depends on the context provided to it. GitHub Copilot searches through open tabs by text similarity, sending snippets to the Large Language Model (LLM), which itself is a complete black box. Therefore, we must be mindful of the context we want to provide. In programming, files such as declaration files (d.ts), test files, and interface files contain a wealth of context information. By using Visual Studio Code's pinning feature, you can easily access these files when needed and provide information to GitHub Copilot more efficiently.
 
 #### Example
 
-Visual Studio Codeでファイルをピン留めする方法は次のとおりです:
+Here's how you can pin a file in Visual Studio Code:
 
-1. ピン留めしたいファイルを開きます。
-2. ファイルタブ上で右クリックします。
-3. コンテキストメニューから"Pin Tab"を選択します。
+1. Open the file you want to pin.
+2. Right-click on the file tab.
+3. Select "Pin Tab" from the context menu.
 
-### Exercise
+### Exerecise
 
-- **エクササイズ 1**: 現在のプロジェクトで宣言ファイル（例: `.d.ts`ファイル）をピン留めし、GitHub Copilotと一緒に作業する際にアクセスが容易になることに注目してください。
-- **エクササイズ 2**: 新しいインターフェイスファイルを作成し、ピン留めします。GitHub Copilotがこのファイルをどのように利用してより良いコード提案ができるのか探究してください。
-- **エクササイズ 3**: プロジェクト内で複数のテストファイルをピン留めし、Copilotの助けを借りて新しいテストケースを書く際にどのように助けになるか観察してください。
+- **Exercise 1**: Pin a declaration file (such as a `.d.ts` file) in your current project and notice how it's easier to access when working with GitHub Copilot.
+- **Exercise 2**: Create a new interface file and pin it. Explore how GitHub Copilot can utilize this file for better code suggestions.
+- **Exercise 3**: Pin multiple test files within your project and observe how this helps you when writing new test cases with the assistance of Copilot.
 
 ### Checklist for Further Learning
 
-- ピン留めするファイルの種類を変えると、GitHub Copilot との作業フローにどのような影響がありますか?
-- Visual Studio Codeの他の機能は、GitHub Copilot との経験を向上させるためにどう活用できますか?
-- 大量のピン留めファイルを管理して、常に GitHub Copilot に適切なコンテキストが利用可能であるようにするにはどうすればよいですか?
+- How might pinning different types of files affect your workflow with GitHub Copilot?
+- What other features of Visual Studio Code could be leveraged to enhance your experience with GitHub Copilot?
+- How can you manage a large number of pinned files to ensure that the right context is always available for Copilot?
 
-## エディタテクニック: 定義に移動
+## Client-tips: Go to definition
 
-Duration: 00:05:00
+### Description
 
-複雑なコードベースで作業する際に、特定の関数やクラスの定義を見つけるためにファイル間をジャンプしたり、コードのレイヤーを検索するのは面倒です。"定義に移動" は、Visual Studio Code の便利な機能で、開発者が現在のファイル内の関数やクラスの定義にすばやく移動できるようにします。これによって生産性が向上するだけでなく、コード構造の理解も深まります。GitHub Copilot は開いているタブを読み取ります。"定義に移動" を使い実装を遡りながらファイルを開いていくことで、コードの奥深くにある定義に関連するコードスニペットも GitHub Copilot に渡すことができます。
+When working with a complex codebase, jumping between files or searching through layers of code to find the definition of a particular symbol can be cumbersome. "Go to Definition" is a useful feature in Visual Studio Codethat allows developers to quickly navigate to the definition of a symbol in the current file. This not only enhances productivity but also enables better understanding of the code structure. GitHub Copilot will read open tabs. So, you can also pass relevant code snippets related to the symbol definition to GitHub Copilot
 
 #### Example
 
-Visual Studio Codeの "定義に移動" 機能を使用するには、調べたい関数やクラスを右クリックし、"定義に移動" を選択します。
-ショートカット `F12` も使用できます。以下のように行うことができます。
+To use the "Go to Definition" feature in VS Code, simply right-click on the symbol you want to explore and select "Go to Definition." You can also use the shortcut `F12`. Here's how you can do it:
 
-### Exercise
+### Exerecise
 
-- **エクササイズ 1**: Visual Studio Code で複数のファイルを持つプロジェクトを開き、クラスまたは関数定義へ "定義に移動" を使用して移動してみましょう。
-- **エクササイズ 2**: 変数、メソッド、クラスなど、異なる関数やクラスシンボルで "定義に移動" 機能の使用を練習して、その多様性を理解しましょう。
+- **Exercise 1**: Open a project with multiple files in Visual Studio Codeand try to use "Go to Definition" to navigate to a class or function definition.
+- **Exercise 2**: Practice using the "Go to Definition" feature with different symbols such as variables, methods, or classes to understand its versatility.
 
 ### Checklist for Further Learning
 
-- "定義に移動" 機能は、全体のコーディング体験をどのように向上させることができますか?
-- "定義に移動" 機能と GitHub Copilot の統合は、コードナビゲーションと理解にどのようにさらに支援することができますか?
-- この機能が開発ワークフローで特に有用である場合を特定できますか?
+- How does the "Go to Definition" feature enhance your overall coding experience?
+- How can GitHub Copilot's integration with the "Go to Definition" feature be used to further assist you in code navigation and understanding?
+- Can you identify situations where this feature could be exceptionally useful in your development workflow?
 
+## Topic: High-level Architecture First
 
-## Topic: ハイレベルアーキテクチャを先に
+### Description
 
-Duration: 00:02:00
+When developing a complex system, it is common to dive into the details of the code and lose sight of the overall architecture of the program. When this happens repeatedly, GitHub Copilot also loses sight of its overall architecture. This can lead to misunderstandings and errors. By designing the high-level architecture of the program first and commenting on the function and purpose of each piece of code during development, GitHub Copilot can better understand the context and make more precise suggestions.
 
-複雑なシステムを開発するとき、いきなり細部のコードに飛び込み、プログラムの全体的なアーキテクチャを見失うことはよくあることです。このような事が繰り返されると、同時に GitHub Copilot も全体的なアーキテクチャを見失うことに繋がります。これは誤解やエラーの原因となってしまいます。開発において、プログラムのハイレベルなアーキテクチャを先に設計し、コードの各部分の機能と目的についてコメントしていくことにより、GitHub Copilot も文脈をよりよく理解し、より的確な提案をすることができます。
+#### Samples
 
-#### Example
-
-ウェブアプリケーションでのAPIエンドポイントファイルを考えてみましょう。初期に設計を自然言語で提案することは、各エンドポイントの機能を GitHub Copilot に理解させるのに役立ちます。
+Consider an API endpoint file in a web application. Suggesting the design in natural language early on will help GitHub Copilot understand the functionality of each endpoint.
 
 ```rb
 # GET /items
-# - アイテムのリストを取得します。
-# - 応答でアイテムのコレクションを返します。
+# - Retrieves a list of items.
+# - Returns a collection of items in the response.
 # 
 # POST /items
-# - 新しいアイテムを作成し、コレクションに追加します。
-# - リクエストでアイテムのパラメーターが必要です。
-# - 成功時に成功メッセージとともにカートページにリダイレクトします。
-# - 失敗した場合、新しいアイテムのフォームを表示します。
+# - Creates a new item and adds it to the collection.
+# - Expects item parameters in the request.
+# - Redirects to the cart page with a success message upon success.
+# - Displays the form for a new item if failed.
 # 
 # GET /items/:id
-# - 特定のIDを持つアイテムを取得します。
-# - URLパラメーターとしてアイテムのIDが必要です。
-# - 応答で要求されたアイテムの詳細を返します。
+# - Retrieves an item with a specific ID.
+# - Expects the item's ID as a URL parameter.
+# - Returns the requested item's details in the response.
 # ...
 ```
 
 ### Exercise
 
-- **エクササイズ**:  バックエンドの簡単な API について、各エンドポイントに対するコメントを含め、ログインと登録システムのハイレベルアーキテ クチャのアウトラインを作成します。
+- **Exercise**: Create an outline of the high-level architecture for a login and registration system, including comments for each endpoint.
 
 ### Checklist for Further Learning
 
-- コードの詳細を書く前に明確なロードマップを確立しましたか?
-- GitHub Copilot は、ハイレベルのコメントを読むだけで、ファイルの目的を理解できますか?
-- このパターンをコードベース全体で一貫して適用していますか?
+- Have you established a clear roadmap before writing code details?
+- Does GitHub Copilot understand the purpose of a file just by reading the high-level comments?
+- Are you applying this pattern consistently throughout your codebase?
 
-## Topic: 小さなまとまりで作業する
+## Topic: Working on Small Chunks
 
-Duration: 00:01:00
+### Description
 
-小さなコードの断片をより少ないコンテキストで扱うと、GitHub Copilot の出力が向上します。複雑なアプリケーションを構築していると想像してください。すべてを一度に生成しようとする代わりに、タスクを小さな部分に分割し、限定されたコンテキストを GitHub Copilot に提供します。このアプローチは開発プロセスを合理化するだけでなく、生成されたコードの品質も向上させます。
+Working on small chunks of code with less context can lead to improved Copilot's output. Imagine you're building a complex application with several interconnected components. Instead of trying to generate everything in one go, you break down the task into smaller parts, providing a confined context for Copilot. This approach not only streamlines the development process but also enhances the quality of the generated code.
 
-コンテキストレスなアーキテクチャをデザインの段階で考慮するアイデアもありますが、すべてのプロジェクトで疎結合のアーキテクチャを適用することは難しいです。また、AIツールの精度を高めるためにアーキテクチャデザインを変えるのは本末転倒です。このパターンでは、少なくとも作業環境でコンテキストができるだけ小さくなるように、小さなチャンクで作業することによりGitHub Copilot の提案を向上させることを目的としています。GitHub Copilot が、全体的なプロジェクトの複雑さに圧倒されることなく、手がかりの具体的なタスクを理解できるようにする、よりコントロールされた、正確で、効率的なコード生成が可能です。
+Some ideas consider context-less architecture in the design phase, but it is difficult to apply a loosely coupled architecture to every project.
+
+Also, changing the architectural design to improve the accuracy of AI tools is not the way to go. This pattern aims to improve GitHub Copilot's proposal by at least working in small chunks so that the context is as small as possible in the working environment, so that GitHub Copilot does not become overwhelmed by the complexity of the overall project. more controlled, accurate, and efficient code generation that allows you to understand the specific tasks of the clues.
 
 #### Example
 
-複雑な計算する関数を書くとしましょう。GitHub Copilot に全体の複雑な解決策を求める代わりに、いくつかの関数に分けて、それぞれの関数を生成するように求めます。このアプローチは、GitHub Copilot がより小さなコンテキストで作業することを可能にし、より正確なコードを生成します。
+Suppose you want to write a function to calculate the factorial of a number. Instead of asking Copilot for the entire solution, you may start by writing the function signature and then ask for the body:
 
 ```python
-def complex_calculation(n):
-  # Ask GitHub Copilot to complete this function
+def factorial(n):
+  # Ask Copilot to complete this function
 ```
 
-```python
-# Just write your code description by yourself
-class complex_calculation:
-  def __init__(self, n):
-    self.n = n
+### Exerecise
 
-  def foo_calculation(self):
-    # Ask GitHub Copilot to complete this function
-
-  def bar_calculation(self):
-    # Ask GitHub Copilot to complete this function
-```
-
-### Exercise
-
-- **エクササイズ 1**: 複雑なアルゴリズムを小さな部分に分割し、各部分のコードを GitHub Copilot で生成します。
-- **エクササイズ 2**: タスクのハイレベルの説明を書き、狭いコンテキストで GitHub Copilot にコードを求めます。結果を比較します。
-- **エクササイズ 3**: 個人的な開発プロセスを振り返り、タスクを小さなチャンクに分割することが有益であるエリアを特定します。
+- **Exercise 1**: Break down a complex algorithm into smaller parts and use Copilot to generate code for each part.
+- **Exercise 2**: Write a high-level description of a task, and then ask Copilot for code in a narrow context. Compare the results.
+- **Exercise 3**: Reflect on your personal development process and identify areas where breaking tasks into smaller chunks can be beneficial.
 
 ### Checklist for Further Learning
 
-- コンテキストを絞り込むことが、GitHub Copilot の提案の精度にどのように影響しますか?
-- GitHub Copilot により正確なコンテキストを提供するために、どのような戦略を使用できますか?
-- GitHub Copilot の確率的な性質が、異なるシナリオでコードを生成する能力にどのように影響しますか?
-- GitHub Copilot との小さなチャンクでの作業が、効果が少ないか、より困難である状況はありますか?
+- How can narrowing down the context impact the relevancy of Copilot's suggestions?
+- What strategies can be used to provide Copilot with a more precise context for better code generation?
+- How does Copilot's probabilistic nature influence its ability to generate code in different scenarios?
+- In what situations might working in smaller chunks with Copilot be less effective or more challenging?
 
 ## 時間が余った方に
 
 Duration: 00:30:00
 
-GitHub CopilotでNode.jsの計算機ウェブアプリを改善してみましょう。
+Let's improve a Node.js calculator web app using GitHub Copilot.
 
-ソースコードは[こちら](https://github.com/copilot-workshops/copilot-node-calculator)です
-このシナリオではまず計算機ウェブアプリを作成し、GitHub Copilotを活用しながら新たな機能を追加します。
+The source code can be found [here](https://github.com/copilot-workshops/copilot-node-calculator). In this scenario, we'll first create a calculator web app and then add new features while utilizing GitHub Copilot.
 
-以下の課題にチャレンジしてみましょう
+Let's take on the following challenges:
 
-- 単体テストの追加 (引き算)
-- 単体テストの追加 (べき乗)
-- 新たな演算機能を計算機に実装
+Add unit tests (subtraction)
+Add unit tests (exponentiation)
+Implement a new mathematical operation in the calculator
 
 ![](images//node-calculator-image.png)

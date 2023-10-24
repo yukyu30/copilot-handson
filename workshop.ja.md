@@ -3,7 +3,7 @@ Summary: GitHub Copilot
 Id: docs
 Environments: Web
 Status: Published
-Feedback Link: https://github.com/yuhattor/copilot-handson-jp
+Feedback Link: https://github.com/yuhattor/copilot-handson
 
 # GitHub Copilot ワークショップ
 
@@ -149,7 +149,7 @@ def main():
     print(judge(player_hand, computer_hand))
 
 # 9通りのテストケースを書いてみる
-class TestJanken(unittest.TestCase):
+class TestRockPaperScissors(unittest.TestCase):
   # Copilot が提案をします
 ```
 
@@ -157,7 +157,7 @@ class TestJanken(unittest.TestCase):
 
 ```py
 # 9通りのテストケースを書いてみる
-class TestJanken(unittest.TestCase):
+class TestRockPaperScissors(unittest.TestCase):
     # グーをテスト
     def test_goo(self):
         self.assertEqual(judge("グー", "グー"), "あいこです。")
@@ -262,7 +262,7 @@ import unittest
 import random
 from sample import judge, main
 
-class TestJankenGame(unittest.TestCase):
+class TestRockPaperScissorsGame(unittest.TestCase):
     
     def test_judge_draw(self):
         self.assertEqual(judge("グー", "グー"), "あいこです。")
