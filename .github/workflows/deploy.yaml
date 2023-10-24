@@ -24,8 +24,11 @@ jobs:
         run: mv docs/en/docs/* docs/en
       - name: Move index
         run: mv index.html docs/
+      - run: sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/en/index.html
+      - run: sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/ja/index.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./docs/
+
