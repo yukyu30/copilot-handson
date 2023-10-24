@@ -723,7 +723,7 @@ def factorial(n):
 - How does Copilot's probabilistic nature influence its ability to generate code in different scenarios?
 - In what situations might working in smaller chunks with Copilot be less effective or more challenging?
 
-## 時間が余った方に
+## Additional Contents
 
 Duration: 00:30:00
 
