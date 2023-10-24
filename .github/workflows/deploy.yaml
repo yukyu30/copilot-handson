@@ -15,17 +15,19 @@ jobs:
       - name: Install claat
         run: go install github.com/googlecodelabs/tools/claat@latest
       - name: Generate lab contents
-        run: $HOME/go/bin/claat export -o docs/ja workshop.ja.md
-      - name: Move directory
-        run: mv docs/ja/docs/* docs/ja
-      - name: Generate lab contents for EN
-        run: $HOME/go/bin/claat export -o docs/en workshop.en.md
-      - name: Move directory
-        run: mv docs/en/docs/* docs/en
-      - name: Move index
-        run: mv index.html docs/
-      - run: sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/en/index.html
-      - run: sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/ja/index.html
+        run: | 
+          $HOME/go/bin/claat export -o docs/en workshop.en.md
+          $HOME/go/bin/claat export -o docs/ja workshop.ja.md
+      - name: Move files
+        run: | 
+          mv index.html docs/
+          mv docs/en/docs/* docs/en
+          mv docs/ja/docs/* docs/ja
+      - name: 
+        run: | 
+          mv overwrite.js docs/
+          sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/en/index.html
+          sed -i 's/<\/head>/<script src="..\/overwrite.js"><\/script><\/head>/' docs/ja/index.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
