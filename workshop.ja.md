@@ -135,7 +135,7 @@ def judge(player_hand, computer_hand):
     else:
         return "グー、チョキ、パーのいずれかを入力してください。"
 
-# judge 関するを使ってじゃんけんをする main 関数を定義
+# judge 関数を使ってじゃんけんをする main 関数を定義
 def main():
     # プレイヤーの手を入力
     player_hand = input("じゃんけんをしましょう！(グー、チョキ、パー)：")
